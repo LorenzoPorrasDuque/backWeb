@@ -9,4 +9,7 @@ type User struct {
 	Email       string `json:"email"`
 	Description string `json:"description"`
 	UrlImage    string `json:"urlImage"`
+
+	// Relationship
+	MessagesForum []MessageForum `json:"messagesForum" gorm:"foreignKey:UserId"`
 }
