@@ -12,4 +12,6 @@ type User struct {
 
 	// Relationship
 	MessagesForum []MessageForum `json:"messagesForum" gorm:"foreignKey:UserId"`
+	Fighters      []Fighter      `json:"fighters" gorm:"many2many:UserId"`
+	History       []History      `json:"history" gorm:"many2many:UserId"`
 }
