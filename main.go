@@ -7,22 +7,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func init() {
+func main() {
 	db := database.ConnectToDb()
 	db.AutoMigrate(&models.User{}, &models.MessageForum{}, &models.Fighter{}, &models.History{})
+	fmt.Println("Hello World")
 
-}
-
-func main() {
-	fmt.Print("Hello World")
 	r := gin.Default()
+	// Enpoints para crear usuario y logearse
+	r.GET("/login", Logger(db))
+	r.POST("/createUser", models.CreateUser(db))
 
-	group := r.Group("/api", Logger)
+	//A partir de aqui todos los endpoints estan protegidos por token
+	group := r.Group("/user", ValidateToken)
 
-	group.GET("/ping", func(c *gin.Context) {
+	group.GET("/get", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"message": "Hello World",
 		})
+
 	})
 
 	r.Run()
