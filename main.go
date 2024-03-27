@@ -14,18 +14,15 @@ func main() {
 
 	r := gin.Default()
 	// Enpoints para crear usuario y logearse
-	r.GET("/login", Logger(db))
+	r.GET("/login", models.Logger(db))
 	r.POST("/createUser", models.CreateUser(db))
 
 	//A partir de aqui todos los endpoints estan protegidos por token
-	group := r.Group("/user", ValidateToken)
+	group := r.Group("/user", models.ValidateToken)
 
-	group.GET("/get", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World",
-		})
-
-	})
+	group.GET("/getUser", models.GetUser(db))
+	group.DELETE("/deleteUser", models.DeleteUser(db))
+	group.PUT("/updateUser", models.UpdateUser(db))
 
 	r.Run()
 

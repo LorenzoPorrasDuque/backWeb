@@ -7,15 +7,14 @@ import (
 
 type User struct {
 	gorm.Model
-	Username    string `json:"username" gorm:"unique:not null:require"` //probar si esto funciona
-	Password    string `json:"password"`
+	Username    string `json:"username" gorm:"unique;not null"` //probar si esto funciona
+	Password    string `json:"password" gorm:"not null"`
 	Description string `json:"description"`
 	UrlImage    string `json:"urlImage"`
 
 	// Relationship
-	MessagesForum []MessageForum `json:"messagesForum" gorm:"foreignKey:UserId"`
-	Fighters      []Fighter      `json:"fighters" gorm:"many2many:UserId"`
-	History       []History      `json:"history" gorm:"many2many:UserId"`
+	MessagesForum []MessageForum `json:"messagesForum" gorm:"foreignKey:UserId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL; " `
+	Fighters      []Fighter      `json:"fighters" gorm:"foreignKey:UserId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 func CreateUser(db *gorm.DB) gin.HandlerFunc {
@@ -23,6 +22,36 @@ func CreateUser(db *gorm.DB) gin.HandlerFunc {
 		var user User
 		c.BindJSON(&user)
 		db.Create(&user)
+		c.JSON(200, user)
+	}
+}
+func GetUser(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString, _ := c.Request.Cookie("Token")
+		idUser := GetIdJWT(tokenString.Value)
+		var user User
+		db.First(&user, idUser)
+		c.JSON(200, user)
+	}
+}
+func DeleteUser(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString, _ := c.Request.Cookie("Token")
+		idUser := GetIdJWT(tokenString.Value)
+		var user User
+		db.First(&user, idUser)
+		db.Delete(&user)
+		c.JSON(200, user)
+	}
+}
+func UpdateUser(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString, _ := c.Request.Cookie("Token")
+		idUser := GetIdJWT(tokenString.Value)
+		var user User
+		db.First(&user, idUser)
+		c.BindJSON(&user)
+		db.Save(&user)
 		c.JSON(200, user)
 	}
 }

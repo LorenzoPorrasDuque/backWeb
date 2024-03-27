@@ -6,11 +6,10 @@ type Fighter struct {
 	gorm.Model
 	Name   string `json:"name"`
 	Age    int    `json:"age"`
-	IsDead bool   `json:"isDead"`
 	UserId uint   `json:"userId"`
 	Stats  Stats  `json:"stats" gorm:"embedded"`
 	// Relationship
-	History []History `json:"history" gorm:"many2many:history_fighter;"`
+
 }
 
 type Stats struct {

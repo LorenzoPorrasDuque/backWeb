@@ -1,7 +1,6 @@
-package main
+package models
 
 import (
-	"backWeb/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -14,7 +13,7 @@ type MyCustomClaims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(user models.User) string {
+func GenerateToken(user User) string {
 
 	claims := MyCustomClaims{
 		RegisteredClaims: jwt.RegisteredClaims{
@@ -47,7 +46,7 @@ func ValidateToken(c *gin.Context) {
 
 func Logger(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var user models.User
+		var user User
 		c.BindJSON(&user)
 
 		result := db.First(&user, "username = ? AND password=?", user.Username, user.Password)
@@ -65,4 +64,13 @@ func Logger(db *gorm.DB) gin.HandlerFunc {
 
 	}
 
+}
+func GetIdJWT(tokenString string) string {
+	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		// You should validate the token signing method and return the key here
+		return []byte("TheMostSecureKeyInTheWorld"), nil
+	})
+
+	userId := token.Claims.(jwt.MapClaims)["jti"].(string)
+	return userId
 }
