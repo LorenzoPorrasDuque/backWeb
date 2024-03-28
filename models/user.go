@@ -13,8 +13,8 @@ type User struct {
 	UrlImage    string `json:"urlImage"`
 
 	// Relationship
-	MessagesForum []MessageForum `json:"messagesForum" gorm:"foreignKey:UserId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL; " `
-	Fighters      []Fighter      `json:"fighters" gorm:"foreignKey:UserId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	MessagesForum []*MessageForum `json:"messagesForum" gorm:"foreignKey:UserId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL; " `
+	Fighters      []*Fighter      `json:"fighters" gorm:"foreignKey:UserId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 func CreateUser(db *gorm.DB) gin.HandlerFunc {

@@ -46,6 +46,8 @@ func main() {
 
 	//History endpoints
 	group.POST("/createHistory/:id1/:id2", models.CreateHistory(db))
+	group.GET("/getAllHistories", models.SearchAllHistories(db))
+	group.GET("/getHistory/:id", models.SearchHistory(db))
 	r.Run()
 
 }
