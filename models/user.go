@@ -30,7 +30,21 @@ func GetUser(db *gorm.DB) gin.HandlerFunc {
 		tokenString, _ := c.Request.Cookie("Token")
 		idUser := GetIdJWT(tokenString.Value)
 		var user User
-		db.First(&user, idUser)
+		db.Preload("MessageForum").Preload("Fighters").Preload("Fighters.History").First(&user, idUser)
+		c.JSON(200, user)
+	}
+}
+func GetAllUser(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var user []User
+		db.Preload("MessageForum").Preload("Fighters").Find(&user)
+		c.JSON(200, user)
+	}
+}
+func GetOtherUser(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var user User
+		db.Preload("MessageForum").Preload("Fighters").First(&user, c.Param("id"))
 		c.JSON(200, user)
 	}
 }

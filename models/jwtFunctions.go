@@ -17,7 +17,7 @@ func GenerateToken(user User) string {
 
 	claims := MyCustomClaims{
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(1 * time.Hour)),
 			ID:        strconv.Itoa(int(user.ID)),
 		},
 	}
