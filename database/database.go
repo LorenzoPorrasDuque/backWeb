@@ -29,4 +29,5 @@ func ConnectToDb() *gorm.DB {
 
 	fmt.Println("Connected to the database")
 	return database
+
 }

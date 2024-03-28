@@ -1,8 +1,6 @@
 package main
 
 import (
-	"backWeb/database"
-	"backWeb/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )
