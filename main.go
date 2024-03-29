@@ -1,6 +1,8 @@
 package main
 
 import (
+	"backWeb/database"
+	"backWeb/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )
@@ -46,6 +48,7 @@ func main() {
 	group.POST("/createHistory/:id1/:id2", models.CreateHistory(db))
 	group.GET("/getAllHistories", models.SearchAllHistories(db))
 	group.GET("/getHistory/:id", models.SearchHistory(db))
+
 	r.Run()
 
 }
