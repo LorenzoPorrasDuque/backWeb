@@ -36,7 +36,7 @@ func main() {
 	group.GET("/getAllFighters", models.GetAllFighters(db))
 	group.POST("/createFighter", models.CreateFighter(db))
 	group.DELETE("/deleteFighter/:id", models.DeleteFighter(db)) //Problema, este parcero borra cualquiera no solo los de la persona
-	group.PUT("/updateFighter/:id", models.UpdateFighter(db))    //Mismo problema anterior
+	group.PUT("/updateFighter/:id", models.UpdateFighter(db))    //Mismo problema anterior jaja xd
 
 	//MessageForum endpoints
 	group.GET("/getAllYourPost", models.GetAllYourPost(db))
