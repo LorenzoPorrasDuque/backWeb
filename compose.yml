@@ -33,4 +33,4 @@ services:
 networks:
   my-network:
 volumes:
-    postgres-data:
+  postgres-data:
