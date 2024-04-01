@@ -67,7 +67,7 @@ func Logger(db *gorm.DB) gin.HandlerFunc {
 }
 func GetIdJWT(tokenString string) string {
 	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// You should validate the token signing method and return the key here
+		// Esto hace magia
 		return []byte("TheMostSecureKeyInTheWorld"), nil
 	})
 
