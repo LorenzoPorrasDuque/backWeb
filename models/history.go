@@ -14,6 +14,8 @@ type History struct {
 	Fighter []*Fighter `json:"history" gorm:"many2many:fighter_history;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
+//FALTA UPDATE DE HISTORIA VER EL MUCHOS A MUCHOS
+
 func calculateWinner(f1, f2 Fighter) int {
 	var winner int
 	promFighter1 := (f1.Stats.Agility + f1.Stats.Strength + f1.Stats.Weight) / 3
