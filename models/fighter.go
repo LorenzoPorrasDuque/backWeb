@@ -27,7 +27,7 @@ type Stats struct {
 func GetFighter(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var fighter Fighter
-		db.First(&fighter, c.Param("id"))
+		db.Preload("History").First(&fighter, c.Param("id"))
 		c.JSON(200, fighter)
 	}
 }
