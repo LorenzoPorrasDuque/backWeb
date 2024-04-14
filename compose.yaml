@@ -4,7 +4,6 @@ services:
     build:
         context: .
         dockerfile: db.dockerfile
-
     ports:
       - "5432:5432"
     networks:
@@ -21,6 +20,7 @@ services:
     build:
         context: .
         dockerfile: api.dockerfile
+
     ports:
       - "8080:8080"
     networks:
