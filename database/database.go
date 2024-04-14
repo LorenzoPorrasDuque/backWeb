@@ -10,9 +10,7 @@ import (
 )
 
 func ConnectToDb() *gorm.DB {
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env files")
-	}
+	godotenv.Load()
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
