@@ -33,7 +33,7 @@ services:
         - path: ./
           target: /app
           action: sync+restart
-    command: ["go", "run", "main.go"]
+
 
 networks:
   my-network:
