@@ -1,10 +1,10 @@
-version: '3.8'
 
 services:
   postgres:
     build:
-      context: .
-      dockerfile: db.dockerfile
+        context: .
+        dockerfile: db.dockerfile
+
     ports:
       - "5432:5432"
     networks:
@@ -19,8 +19,8 @@ services:
 
   go-app:
     build:
-      context: .
-      dockerfile: api.dockerfile
+        context: .
+        dockerfile: api.dockerfile
     ports:
       - "8080:8080"
     networks:
@@ -28,7 +28,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-
+    develop:
+      watch:
+        - path: ./
+          target: /app
+          action: sync+restart
+    command: ["go", "run", "main.go"]
 
 networks:
   my-network:
