@@ -23,6 +23,12 @@ services:
       dockerfile: api.dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=123
+      - DB_NAME=test
     networks:
       - my-network
     depends_on:
