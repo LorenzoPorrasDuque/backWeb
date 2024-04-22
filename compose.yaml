@@ -20,7 +20,6 @@ services:
     build:
         context: .
         dockerfile: api.dockerfile
-
     ports:
       - "8080:8080"
     networks:
@@ -33,6 +32,8 @@ services:
         - path: ./
           target: /app
           action: sync+restart
+        - path: ./go.mod
+          action: rebuild
 
 
 networks:
