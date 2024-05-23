@@ -14,7 +14,7 @@ func main() {
 
 	r := gin.Default()
 	// Enpoints para crear usuario y logearse
-	r.GET("/login", models.Logger(db))
+	r.POST("/login", models.Logger(db))
 	r.POST("/createUser", models.CreateUser(db))
 
 	//A partir de aqui todos los endpoints estan protegidos por token
