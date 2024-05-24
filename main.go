@@ -50,8 +50,14 @@ func main() {
 	group.GET("/getAllHistories", models.SearchAllHistories(db))
 	group.GET("/getHistory/:id", models.SearchHistory(db))
 
-	r.Use(cors.Default())
-
+	// - Preflight requests cached for 12 hours
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE"},
+		AllowHeaders:     []string{"Origin"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 	r.Run()
 
 }
