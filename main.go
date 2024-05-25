@@ -15,6 +15,16 @@ func main() {
 	fmt.Println("Hello World")
 
 	r := gin.Default()
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"https://ssh.oscar-este-es-la-upb-real.online"},
+		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+	
 	// Enpoints para crear usuario y logearse
 	r.POST("/login", models.Logger(db))
 	r.POST("/createUser", models.CreateUser(db))
@@ -52,14 +62,6 @@ func main() {
 	group.GET("/getHistory/:id", models.SearchHistory(db))
 
 	// - Preflight requests cached for 12 hours
-	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://ssh.oscar-este-es-la-upb-real.online"},
-		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
 
 	r.Run()
 
