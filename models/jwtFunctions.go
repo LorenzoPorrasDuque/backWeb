@@ -30,10 +30,10 @@ func GenerateToken(user User) string {
 
 func ValidateToken(c *gin.Context) {
 	cookie := c.GetHeader("Cookie")
-	token, error := jwt.Parse(cookie[6:], func(token *jwt.Token) (interface{}, error) {
+	token, xd := jwt.Parse(cookie[6:], func(token *jwt.Token) (interface{}, error) {
 		return []byte("TheMostSecureKeyInTheWorld"), nil //Esto si que menos deberia estar aqui, pero jaja xd
 	})
-	if error != nil {
+	if xd != nil {
 		fmt.Println("Error parsing token")
 		c.AbortWithStatus(401)
 	}
