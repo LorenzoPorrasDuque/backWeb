@@ -41,7 +41,7 @@ func main() {
 	//Figther endpoints
 
 	group.GET("/getFighter/:id", models.GetFighter(db))
-	group.GET("/getYourFighters/", models.GetYourFighters(db))
+	group.GET("/getYourFighters", models.GetYourFighters(db))
 	group.GET("/getAllFighters", models.GetAllFighters(db))
 	group.POST("/createFighter", models.CreateFighter(db))
 	group.DELETE("/deleteFighter/:id", models.DeleteFighter(db)) //Problema, este parcero borra cualquiera no solo los de la persona
