@@ -53,7 +53,7 @@ func main() {
 
 	// - Preflight requests cached for 12 hours
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"ssh.oscar-este-es-la-upb-real.online"},
+		AllowOrigins:     []string{"https://ssh.oscar-este-es-la-upb-real.online"},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
